@@ -77,13 +77,13 @@ export function HeroSection() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.8 }}
       >
-        <p className="text-xs md:text-sm uppercase tracking-[0.4em] text-foreground/70 font-sans mix-blend-difference">
+        <p className="text-xs md:text-sm uppercase tracking-[0.4em] font-sans" style={{color: '#f9a8c9'}}>
           10 · 07 · 2026
         </p>
         <h1 className="text-5xl md:text-7xl lg:text-9xl font-serif text-center leading-none" style={{color: '#f9a8c9'}}>
           WEDDING DAY
         </h1>
-        <p className="text-xl md:text-2xl font-serif italic text-foreground/80 mix-blend-difference mt-2">
+        <p className="text-xl md:text-2xl font-serif italic mt-2" style={{color: '#f9a8c9'}}>
           Владимир & Элиза
         </p>
       </motion.div>
