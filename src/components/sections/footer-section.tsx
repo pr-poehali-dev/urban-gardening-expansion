@@ -1,17 +1,6 @@
-import { useState } from "react"
 import { motion } from "framer-motion"
-import { ArrowRight } from "lucide-react"
-
-const footerLinks = [
-  { label: "Программа", href: "#" },
-  { label: "Галерея", href: "#" },
-  { label: "Место", href: "#" },
-  { label: "Связь", href: "#" },
-]
 
 export function FooterSection() {
-  const [name, setName] = useState("")
-
   return (
     <footer className="relative bg-background px-6 py-24 overflow-hidden">
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] pointer-events-none">
@@ -29,56 +18,47 @@ export function FooterSection() {
             >
               С любовью.
             </motion.h2>
-
-            <nav className="flex flex-wrap gap-6 mt-8">
-              {footerLinks.map((link, i) => (
-                <motion.a
-                  key={i}
-                  href={link.href}
-                  className="text-muted-foreground hover:text-foreground transition-colors"
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: i * 0.05 }}
-                  data-clickable
-                >
-                  {link.label}
-                </motion.a>
-              ))}
-            </nav>
           </div>
 
-          <motion.div initial={{ opacity: 0, y: 30 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}>
-            <p className="text-muted-foreground text-sm mb-4">Подтвердите своё участие — напишите своё имя.</p>
-            <form onSubmit={(e) => e.preventDefault()} className="flex gap-2">
-              <input
-                type="text"
-                value={name}
-                onChange={(e) => setName(e.target.value)}
-                placeholder="Ваше имя"
-                className="flex-1 bg-secondary border-0 rounded-lg px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary"
-              />
-              <button
-                type="submit"
-                className="bg-foreground text-background p-3 rounded-lg hover:bg-foreground/90 transition-colors"
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="space-y-3"
+          >
+            <p className="text-muted-foreground text-sm uppercase tracking-widest mb-4">Свяжитесь с нами</p>
+            <div className="flex items-center gap-3">
+              <span className="text-foreground font-serif text-lg">Жених:</span>
+              <a
+                href="https://vk.com/the_volodya_29"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:text-primary/80 transition-colors text-sm"
                 data-clickable
               >
-                <ArrowRight className="w-5 h-5" />
-              </button>
-            </form>
+                @the_volodya_29
+              </a>
+            </div>
+            <div className="flex items-center gap-3">
+              <span className="text-foreground font-serif text-lg">Невеста:</span>
+              <a
+                href="https://vk.com/kto_to_ne.liza"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-primary hover:text-primary/80 transition-colors text-sm"
+                data-clickable
+              >
+                @kto_to_ne.liza
+              </a>
+            </div>
           </motion.div>
         </div>
 
         <div className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-muted-foreground text-sm">10 июля 2026 · Владимир & Элиза ♡</p>
-          <div className="flex gap-6">
-            <a href="#" className="text-muted-foreground hover:text-foreground text-sm" data-clickable>
-              Схема проезда
-            </a>
-            <a href="#" className="text-muted-foreground hover:text-foreground text-sm" data-clickable>
-              Дресс-код
-            </a>
-          </div>
+          <a href="#" className="text-muted-foreground hover:text-foreground text-sm" data-clickable>
+            Дресс-код
+          </a>
         </div>
       </div>
     </footer>

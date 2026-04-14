@@ -78,15 +78,7 @@ export function PricingSection() {
                 ))}
               </ul>
 
-              <button
-                className={`w-full mt-8 py-3 px-6 rounded-lg font-medium transition-colors ${
-                  plan.popular
-                    ? "bg-primary text-primary-foreground hover:bg-primary/90"
-                    : "bg-secondary text-foreground hover:bg-accent/30"
-                }`}
-              >
-                {plan.popular ? "Написать жениху и невесте" : "Посмотреть на карте"}
-              </button>
+
             </motion.div>
           ))}
         </div>
