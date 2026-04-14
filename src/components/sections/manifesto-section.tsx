@@ -23,7 +23,7 @@ export function ManifestoSection() {
         </h2>
 
         <motion.h2
-          className="absolute inset-0 text-4xl md:text-6xl lg:text-7xl font-serif leading-tight text-center bg-gradient-to-r from-rose-500 via-pink-400 to-rose-400 bg-clip-text text-transparent"
+          className="absolute inset-0 text-4xl md:text-6xl lg:text-7xl font-serif leading-tight text-center bg-gradient-to-r from-violet-600 via-purple-400 to-violet-400 bg-clip-text text-transparent"
           style={{ clipPath }}
         >
           Два сердца, одна судьба.

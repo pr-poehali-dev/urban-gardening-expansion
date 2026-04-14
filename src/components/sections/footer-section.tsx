@@ -15,7 +15,7 @@ export function FooterSection() {
   return (
     <footer className="relative bg-background px-6 py-24 overflow-hidden">
       <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[600px] pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-to-tr from-rose-300 via-pink-200 to-rose-100 opacity-40 blur-3xl rounded-full" />
+        <div className="absolute inset-0 bg-gradient-to-tr from-violet-300 via-purple-200 to-violet-100 opacity-40 blur-3xl rounded-full" />
       </div>
 
       <div className="relative max-w-6xl mx-auto">
@@ -70,7 +70,7 @@ export function FooterSection() {
         </div>
 
         <div className="mt-16 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-muted-foreground text-sm">20 сентября 2025 · Самый счастливый день ♡</p>
+          <p className="text-muted-foreground text-sm">10 июля 2026 · Владимир & Элиза ♡</p>
           <div className="flex gap-6">
             <a href="#" className="text-muted-foreground hover:text-foreground text-sm" data-clickable>
               Схема проезда

@@ -2,9 +2,9 @@ import { useRef } from "react"
 import { motion, useScroll, useTransform } from "framer-motion"
 
 const images = [
-  "https://cdn.poehali.dev/projects/f2077913-9ff3-401b-b8b2-20ac3aa28a70/files/90192a10-6b98-4140-b090-a9df3e249d5e.jpg",
-  "https://cdn.poehali.dev/projects/f2077913-9ff3-401b-b8b2-20ac3aa28a70/files/f92e2a9f-a810-4852-a86e-29ecb13ee1cb.jpg",
-  "https://cdn.poehali.dev/projects/f2077913-9ff3-401b-b8b2-20ac3aa28a70/files/8c0250d5-fa43-44c2-be0e-c13fbc070892.jpg",
+  "https://cdn.poehali.dev/projects/f2077913-9ff3-401b-b8b2-20ac3aa28a70/bucket/fa650087-75eb-4914-8916-a2f1c188286a.jpg",
+  "https://cdn.poehali.dev/projects/f2077913-9ff3-401b-b8b2-20ac3aa28a70/bucket/ba9bbc08-8db1-4837-ab5a-8a506766ba38.jpg",
+  "https://cdn.poehali.dev/projects/f2077913-9ff3-401b-b8b2-20ac3aa28a70/bucket/d705bdfa-5e54-4e9a-bd9a-c749490ff755.jpg",
 ]
 
 export function HeroSection() {
@@ -72,14 +72,20 @@ export function HeroSection() {
       </div>
 
       <motion.div
-        className="absolute inset-0 flex items-center justify-center pointer-events-none z-10"
+        className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none z-10 gap-3"
         initial={{ opacity: 0, y: 30 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 1, delay: 0.8 }}
       >
-        <h1 className="text-5xl md:text-7xl lg:text-8xl font-serif text-center text-foreground mix-blend-difference">
-          Мы выходим <em className="italic">замуж</em>.
+        <p className="text-xs md:text-sm uppercase tracking-[0.4em] text-foreground/70 font-sans mix-blend-difference">
+          10 · 07 · 2026
+        </p>
+        <h1 className="text-5xl md:text-7xl lg:text-9xl font-serif text-center text-foreground mix-blend-difference leading-none">
+          WEDDING DAY
         </h1>
+        <p className="text-xl md:text-2xl font-serif italic text-foreground/80 mix-blend-difference mt-2">
+          Владимир & Элиза
+        </p>
       </motion.div>
 
       <motion.div

@@ -25,7 +25,7 @@ function HeartPulse() {
 }
 
 function CountdownAnimation() {
-  const weddingDate = new Date("2025-09-20")
+  const weddingDate = new Date("2026-07-10")
   const now = new Date()
   const diff = Math.max(0, Math.ceil((weddingDate.getTime() - now.getTime()) / (1000 * 60 * 60 * 24)))
 
@@ -100,8 +100,8 @@ export function FeaturesSection() {
               <HeartPulse />
             </div>
             <div className="mt-4">
-              <h3 className="font-serif text-xl text-foreground">20 сентября 2025</h3>
-              <p className="text-muted-foreground text-sm mt-1">Торжество начнётся в 16:00. Сбор гостей — в 15:30.</p>
+              <h3 className="font-serif text-xl text-foreground">10 июля 2026</h3>
+              <p className="text-muted-foreground text-sm mt-1">Торжество начнётся в 17:00. Сбор гостей — в 16:30.</p>
             </div>
           </motion.div>
 
@@ -138,8 +138,8 @@ export function FeaturesSection() {
               <RingsAnimation />
             </div>
             <div className="mt-4">
-              <h3 className="font-serif text-xl text-foreground">Банкетный зал «Лазурь»</h3>
-              <p className="text-muted-foreground text-sm mt-1">ул. Розовая, 12. Бесплатная парковка для гостей.</p>
+              <h3 className="font-serif text-xl text-foreground">Ресторан «Апельсин»</h3>
+              <p className="text-muted-foreground text-sm mt-1">г. Котлас, ул. Конституции, 1А. Сбор гостей в 16:30.</p>
             </div>
           </motion.div>
         </div>
