@@ -1,17 +1,15 @@
 import { motion } from "framer-motion"
 
-const portfolioItems = [
-  "/portfolio-website-design-preview-modern.jpg",
-  "/photography-portfolio-website-clean.jpg",
-  "/architecture-firm-website-minimal.jpg",
-  "/design-agency-portfolio-dark-theme.jpg",
-  "/artist-portfolio-website-creative.jpg",
-  "/writer-portfolio-website-elegant.jpg",
+const carouselItems = [
+  "https://cdn.poehali.dev/projects/f2077913-9ff3-401b-b8b2-20ac3aa28a70/files/90192a10-6b98-4140-b090-a9df3e249d5e.jpg",
+  "https://cdn.poehali.dev/projects/f2077913-9ff3-401b-b8b2-20ac3aa28a70/files/f92e2a9f-a810-4852-a86e-29ecb13ee1cb.jpg",
+  "https://cdn.poehali.dev/projects/f2077913-9ff3-401b-b8b2-20ac3aa28a70/files/8c0250d5-fa43-44c2-be0e-c13fbc070892.jpg",
+  "https://cdn.poehali.dev/projects/f2077913-9ff3-401b-b8b2-20ac3aa28a70/files/07f6be9a-da10-458a-80fb-9053b9d806f8.jpg",
+  "https://cdn.poehali.dev/projects/f2077913-9ff3-401b-b8b2-20ac3aa28a70/files/08a060eb-2637-4a19-b843-ae8159fe59db.jpg",
 ]
 
 export function CarouselSection() {
-  // Duplicate for seamless loop
-  const items = [...portfolioItems, ...portfolioItems]
+  const items = [...carouselItems, ...carouselItems]
 
   return (
     <section className="bg-primary py-24 overflow-hidden">
@@ -22,7 +20,7 @@ export function CarouselSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          Создано авторами для авторов.
+          Создано с любовью, для любимых людей.
         </motion.h2>
       </div>
 
@@ -39,13 +37,13 @@ export function CarouselSection() {
           {items.map((src, i) => (
             <div
               key={i}
-              className="flex-shrink-0 w-[300px] md:w-[400px] rounded-xl overflow-hidden shadow-2xl"
+              className="flex-shrink-0 w-[280px] md:w-[360px] h-[400px] rounded-xl overflow-hidden shadow-2xl"
               data-clickable
             >
               <img
-                src={src || "/placeholder.svg"}
-                alt={`Пример портфолио ${(i % portfolioItems.length) + 1}`}
-                className="w-full h-auto"
+                src={src}
+                alt={`Свадебное фото ${(i % carouselItems.length) + 1}`}
+                className="w-full h-full object-cover"
               />
             </div>
           ))}

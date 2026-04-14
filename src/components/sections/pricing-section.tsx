@@ -1,20 +1,30 @@
 import { motion } from "framer-motion"
 import { Check } from "lucide-react"
 
-const plans = [
+const info = [
   {
-    name: "Старт",
-    price: "1 200",
-    period: " руб/мес",
-    description: "Для личного портфолио",
-    features: ["5 страниц", "Свой домен", "Базовая аналитика", "Поддержка по email"],
+    name: "Для гостей",
+    price: "20.09",
+    period: ".2025",
+    description: "Банкетный зал «Лазурь»",
+    features: [
+      "Начало в 16:00",
+      "Приветственный коктейль с 15:30",
+      "Праздничный банкет",
+      "Живая музыка и танцы",
+    ],
   },
   {
-    name: "Про",
-    price: "2 900",
-    period: " руб/мес",
-    description: "Для растущих авторов",
-    features: ["Безлимит страниц", "Приоритет поддержки", "Расширенная аналитика", "Свой брендинг", "Работа в команде"],
+    name: "Подтвердите участие",
+    price: "до 01.09",
+    period: "",
+    description: "Напишите нам — мы ждём вас!",
+    features: [
+      "Укажите имена гостей",
+      "Сообщите о пожеланиях к меню",
+      "Нужна ли трансфер?",
+      "Будете с детьми?",
+    ],
     popular: true,
   },
 ]
@@ -29,12 +39,12 @@ export function PricingSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
         >
-          <h2 className="text-3xl md:text-5xl font-serif text-foreground">Простые и понятные цены</h2>
-          <p className="text-muted-foreground mt-4 max-w-md mx-auto">Начните бесплатно, платите когда готовы.</p>
+          <h2 className="text-3xl md:text-5xl font-serif text-foreground">Мы ждём именно вас</h2>
+          <p className="text-muted-foreground mt-4 max-w-md mx-auto">Ваше присутствие — лучший подарок для нас.</p>
         </motion.div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-3xl mx-auto">
-          {plans.map((plan, i) => (
+          {info.map((plan, i) => (
             <motion.div
               key={i}
               className={`relative bg-background rounded-xl p-8 ticket-edge ${plan.popular ? "ring-2 ring-primary" : ""}`}
@@ -45,8 +55,8 @@ export function PricingSection() {
               data-clickable
             >
               {plan.popular && (
-                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-lime text-foreground text-xs font-medium px-3 py-1 rounded-full">
-                  Популярный
+                <span className="absolute -top-3 left-1/2 -translate-x-1/2 bg-primary text-primary-foreground text-xs font-medium px-3 py-1 rounded-full">
+                  Важно
                 </span>
               )}
 
@@ -75,7 +85,7 @@ export function PricingSection() {
                     : "bg-secondary text-foreground hover:bg-accent/30"
                 }`}
               >
-                Начать
+                {plan.popular ? "Написать жениху и невесте" : "Посмотреть на карте"}
               </button>
             </motion.div>
           ))}
