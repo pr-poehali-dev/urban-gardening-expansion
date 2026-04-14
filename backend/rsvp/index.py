@@ -5,7 +5,7 @@ import urllib.parse
 
 
 def handler(event: dict, context) -> dict:
-    """Получает ответ гостя и отправляет его в Telegram."""
+    """Получает ответ гостя и отправляет уведомление в Telegram."""
 
     if event.get("httpMethod") == "OPTIONS":
         return {
@@ -21,8 +21,10 @@ def handler(event: dict, context) -> dict:
 
     body = json.loads(event.get("body") or "{}")
     names = body.get("names", "").strip()
-    salads = body.get("salads", [])
+    salad = body.get("salad", "") or "не выбрано"
+    hot = body.get("hot", "") or "не выбрано"
     drinks = body.get("drinks", [])
+    juices = body.get("juices", [])
 
     if not names:
         return {
@@ -31,14 +33,16 @@ def handler(event: dict, context) -> dict:
             "body": json.dumps({"error": "Имена не указаны"}),
         }
 
-    salads_text = ", ".join(salads) if salads else "не выбрано"
     drinks_text = ", ".join(drinks) if drinks else "не выбрано"
+    juices_text = ", ".join(juices) if juices else "не выбрано"
 
     message = (
         "🎊 <b>Новый ответ гостя!</b>\n\n"
         f"👥 <b>Гости:</b> {names}\n"
-        f"🥗 <b>Салаты:</b> {salads_text}\n"
-        f"🍾 <b>Напитки:</b> {drinks_text}"
+        f"🥗 <b>Салат:</b> {salad}\n"
+        f"🍖 <b>Горячее:</b> {hot}\n"
+        f"🍾 <b>Напитки:</b> {drinks_text}\n"
+        f"🧃 <b>Соки:</b> {juices_text}"
     )
 
     token = os.environ["TELEGRAM_BOT_TOKEN"]
