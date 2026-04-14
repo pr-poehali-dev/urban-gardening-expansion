@@ -26,21 +26,32 @@ const dressCodes = [
   { label: "Пастельно-бирюзовый", color: "#99F6E4" },
 ]
 
+const RSVP_URL = "https://functions.poehali.dev/ac3a0049-ee3b-43fb-b7bb-bccf1738c818"
+
 export function RsvpSection() {
   const [selectedSalads, setSelectedSalads] = useState<string[]>([])
   const [selectedDrinks, setSelectedDrinks] = useState<string[]>([])
   const [showNameForm, setShowNameForm] = useState(false)
   const [names, setNames] = useState("")
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const toggleItem = (item: string, list: string[], setList: (v: string[]) => void) => {
     setList(list.includes(item) ? list.filter((i) => i !== item) : [...list, item])
   }
 
-  const handleSubmit = () => {
-    if (names.trim()) {
-      setSubmitted(true)
-    }
+  const handleSubmit = async () => {
+    if (!names.trim()) return
+    setLoading(true)
+    try {
+      await fetch(RSVP_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ names, salads: selectedSalads, drinks: selectedDrinks }),
+      })
+    } catch (e) { console.error(e) }
+    setLoading(false)
+    setSubmitted(true)
   }
 
   return (
@@ -194,9 +205,10 @@ export function RsvpSection() {
                     <div className="flex gap-3 mt-4">
                       <button
                         onClick={handleSubmit}
-                        className="flex-1 bg-primary text-primary-foreground py-3 rounded-xl font-medium hover:bg-primary/90 transition-colors"
+                        disabled={loading}
+                        className="flex-1 bg-primary text-primary-foreground py-3 rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-60"
                       >
-                        Подтвердить
+                        {loading ? "Отправляем..." : "Подтвердить"}
                       </button>
                       <button
                         onClick={() => setShowNameForm(false)}
