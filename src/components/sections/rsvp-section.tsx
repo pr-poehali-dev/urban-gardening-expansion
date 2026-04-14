@@ -3,9 +3,35 @@ import { motion, AnimatePresence } from "framer-motion"
 import Icon from "@/components/ui/icon"
 
 const salads = [
-  "Цезарь с куриным филе",
-  "Греческий",
-  "Курочка на травке",
+  {
+    name: "Цезарь с куриным филе",
+    desc: "курица, черри, соус цезарь, салат, пармезан, гренки",
+  },
+  {
+    name: "Греческий",
+    desc: "огурец, перец болгарский, помидор, брынза, соус из трав, маслины, оливки, зелень",
+  },
+  {
+    name: "Курочка на травке",
+    desc: "курица, огурец, помидор, перец болгарский, капуста китайская, цукини, соус сметанно-майонезный, хворост, зелень",
+  },
+  { name: "Ничего", desc: "" },
+]
+
+const hotDishes = [
+  {
+    name: "Жаркое из курицы",
+    desc: "курица, картофель, лук, помидоры, сметанно-майонезный соус, шампиньоны и чеснок",
+  },
+  {
+    name: "Жаркое из свинины",
+    desc: "свинина, картофель, лук, помидоры, сметанно-майонезный соус, шампиньоны и чеснок",
+  },
+  {
+    name: "Медальоны из свинины в беконе",
+    desc: "свинина, бекон, соус сметанно-чесночный, майонез, коул слоу, морковь, перец болгарский, горчица, масло оливковое, лук",
+  },
+  { name: "Ничего", desc: "" },
 ]
 
 const drinks = [
@@ -13,7 +39,15 @@ const drinks = [
   "Вино красное",
   "Водка",
   "Шампанское",
-  "Сок",
+]
+
+const juices = [
+  "Яблочный",
+  "Апельсиновый",
+  "Мультифрукт",
+  "Вишневый",
+  "Виноград-яблоко",
+  "Земляничный",
 ]
 
 const dressCodes = [
@@ -29,14 +63,16 @@ const dressCodes = [
 const RSVP_URL = "https://functions.poehali.dev/ac3a0049-ee3b-43fb-b7bb-bccf1738c818"
 
 export function RsvpSection() {
-  const [selectedSalads, setSelectedSalads] = useState<string[]>([])
+  const [selectedSalad, setSelectedSalad] = useState<string>("")
+  const [selectedHot, setSelectedHot] = useState<string>("")
   const [selectedDrinks, setSelectedDrinks] = useState<string[]>([])
+  const [selectedJuices, setSelectedJuices] = useState<string[]>([])
   const [showNameForm, setShowNameForm] = useState(false)
   const [names, setNames] = useState("")
   const [submitted, setSubmitted] = useState(false)
   const [loading, setLoading] = useState(false)
 
-  const toggleItem = (item: string, list: string[], setList: (v: string[]) => void) => {
+  const toggleMulti = (item: string, list: string[], setList: (v: string[]) => void) => {
     setList(list.includes(item) ? list.filter((i) => i !== item) : [...list, item])
   }
 
@@ -47,7 +83,13 @@ export function RsvpSection() {
       await fetch(RSVP_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ names, salads: selectedSalads, drinks: selectedDrinks }),
+        body: JSON.stringify({
+          names,
+          salad: selectedSalad,
+          hot: selectedHot,
+          drinks: selectedDrinks,
+          juices: selectedJuices,
+        }),
       })
     } catch (e) { console.error(e) }
     setLoading(false)
@@ -94,62 +136,129 @@ export function RsvpSection() {
             Что будете есть и пить?
           </h2>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
-            {/* Салаты */}
+          <div className="space-y-10">
+            {/* Салаты — один вариант */}
             <div>
               <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-4">
-                Салаты <span className="text-primary">(можно несколько)</span>
+                Салат <span className="text-primary">(один вариант)</span>
               </p>
-              <div className="space-y-3">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {salads.map((item) => {
-                  const active = selectedSalads.includes(item)
+                  const active = selectedSalad === item.name
                   return (
                     <motion.button
-                      key={item}
-                      onClick={() => toggleItem(item, selectedSalads, setSelectedSalads)}
-                      className={`w-full flex items-center gap-3 px-5 py-4 rounded-xl border-2 text-left transition-all ${
+                      key={item.name}
+                      onClick={() => setSelectedSalad(item.name)}
+                      className={`w-full flex items-start gap-3 px-5 py-4 rounded-xl border-2 text-left transition-all ${
                         active
                           ? "border-primary bg-primary/10 text-foreground"
                           : "border-border bg-secondary text-foreground hover:border-primary/40"
                       }`}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${active ? "border-primary bg-primary" : "border-muted-foreground"}`}>
+                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 transition-all ${active ? "border-primary bg-primary" : "border-muted-foreground"}`}>
                         {active && <Icon name="Check" size={12} className="text-white" />}
                       </div>
-                      <span className="font-sans text-sm">{item}</span>
+                      <div>
+                        <span className="font-sans text-sm font-medium">{item.name}</span>
+                        {item.desc && <p className="text-xs text-muted-foreground mt-0.5">{item.desc}</p>}
+                      </div>
                     </motion.button>
                   )
                 })}
               </div>
             </div>
 
-            {/* Напитки */}
+            {/* Горячее — один вариант */}
             <div>
               <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-4">
-                Напитки <span className="text-primary">(можно несколько)</span>
+                Горячее <span className="text-primary">(один вариант)</span>
               </p>
-              <div className="space-y-3">
-                {drinks.map((item) => {
-                  const active = selectedDrinks.includes(item)
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                {hotDishes.map((item) => {
+                  const active = selectedHot === item.name
                   return (
                     <motion.button
-                      key={item}
-                      onClick={() => toggleItem(item, selectedDrinks, setSelectedDrinks)}
-                      className={`w-full flex items-center gap-3 px-5 py-4 rounded-xl border-2 text-left transition-all ${
+                      key={item.name}
+                      onClick={() => setSelectedHot(item.name)}
+                      className={`w-full flex items-start gap-3 px-5 py-4 rounded-xl border-2 text-left transition-all ${
                         active
                           ? "border-primary bg-primary/10 text-foreground"
                           : "border-border bg-secondary text-foreground hover:border-primary/40"
                       }`}
                       whileTap={{ scale: 0.98 }}
                     >
-                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${active ? "border-primary bg-primary" : "border-muted-foreground"}`}>
+                      <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 mt-0.5 transition-all ${active ? "border-primary bg-primary" : "border-muted-foreground"}`}>
                         {active && <Icon name="Check" size={12} className="text-white" />}
                       </div>
-                      <span className="font-sans text-sm">{item}</span>
+                      <div>
+                        <span className="font-sans text-sm font-medium">{item.name}</span>
+                        {item.desc && <p className="text-xs text-muted-foreground mt-0.5">{item.desc}</p>}
+                      </div>
                     </motion.button>
                   )
                 })}
+              </div>
+            </div>
+
+            {/* Напитки и соки */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-10">
+              {/* Напитки */}
+              <div>
+                <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-4">
+                  Напитки <span className="text-primary">(можно несколько)</span>
+                </p>
+                <div className="space-y-3">
+                  {drinks.map((item) => {
+                    const active = selectedDrinks.includes(item)
+                    return (
+                      <motion.button
+                        key={item}
+                        onClick={() => toggleMulti(item, selectedDrinks, setSelectedDrinks)}
+                        className={`w-full flex items-center gap-3 px-5 py-4 rounded-xl border-2 text-left transition-all ${
+                          active
+                            ? "border-primary bg-primary/10 text-foreground"
+                            : "border-border bg-secondary text-foreground hover:border-primary/40"
+                        }`}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${active ? "border-primary bg-primary" : "border-muted-foreground"}`}>
+                          {active && <Icon name="Check" size={12} className="text-white" />}
+                        </div>
+                        <span className="font-sans text-sm">{item}</span>
+                      </motion.button>
+                    )
+                  })}
+                </div>
+              </div>
+
+              {/* Соки */}
+              <div>
+                <p className="text-sm font-medium text-muted-foreground uppercase tracking-wider mb-4">
+                  Соки <span className="text-primary">(можно несколько)</span>
+                </p>
+                <div className="space-y-3">
+                  {juices.map((item) => {
+                    const active = selectedJuices.includes(item)
+                    return (
+                      <motion.button
+                        key={item}
+                        onClick={() => toggleMulti(item, selectedJuices, setSelectedJuices)}
+                        className={`w-full flex items-center gap-3 px-5 py-4 rounded-xl border-2 text-left transition-all ${
+                          active
+                            ? "border-primary bg-primary/10 text-foreground"
+                            : "border-border bg-secondary text-foreground hover:border-primary/40"
+                        }`}
+                        whileTap={{ scale: 0.98 }}
+                      >
+                        <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0 transition-all ${active ? "border-primary bg-primary" : "border-muted-foreground"}`}>
+                          {active && <Icon name="Check" size={12} className="text-white" />}
+                        </div>
+                        <span className="font-sans text-sm">{item}</span>
+                      </motion.button>
+                    )
+                  })}
+                </div>
               </div>
             </div>
           </div>
@@ -200,23 +309,16 @@ export function RsvpSection() {
                       onChange={(e) => setNames(e.target.value)}
                       placeholder="Например: Иван, Мария, Аня (дочь)"
                       rows={3}
-                      className="w-full bg-background border border-border rounded-xl px-4 py-3 text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary resize-none text-sm"
+                      className="w-full bg-background border border-border rounded-xl px-4 py-3 text-foreground placeholder:text-muted-foreground text-sm resize-none focus:outline-none focus:border-primary mb-4"
                     />
-                    <div className="flex gap-3 mt-4">
-                      <button
-                        onClick={handleSubmit}
-                        disabled={loading}
-                        className="flex-1 bg-primary text-primary-foreground py-3 rounded-xl font-medium hover:bg-primary/90 transition-colors disabled:opacity-60"
-                      >
-                        {loading ? "Отправляем..." : "Подтвердить"}
-                      </button>
-                      <button
-                        onClick={() => setShowNameForm(false)}
-                        className="px-5 py-3 rounded-xl border border-border text-muted-foreground hover:text-foreground transition-colors"
-                      >
-                        Назад
-                      </button>
-                    </div>
+                    <motion.button
+                      onClick={handleSubmit}
+                      disabled={!names.trim() || loading}
+                      className="w-full bg-primary text-primary-foreground font-serif text-lg py-4 rounded-xl hover:bg-primary/90 transition-colors disabled:opacity-50"
+                      whileTap={{ scale: 0.97 }}
+                    >
+                      {loading ? "Отправляем..." : "Подтвердить участие ♡"}
+                    </motion.button>
                   </motion.div>
                 )}
               </motion.div>
